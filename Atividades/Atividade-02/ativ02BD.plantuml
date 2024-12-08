@@ -1,0 +1,120 @@
+@startuml
+
+
+' hide the spot
+' hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "TB_FUNCIONARIOS"{
+  *id : INTEGER 
+  --
+  *firstName : NVARCHAR(20) 
+  *lastName : NVARCHAR(20)
+  *title : NVARCHAR(30)
+  *reportsTo: INTEGER 
+  *birthDate: DATETIME
+  *hireDate: DATETIME
+  *adress: nvarchar(70)
+}
+
+entity "TB_CLIENTES" {
+  *id : INTEGER
+  --
+  *firstName : NVARCHAR(40) 
+  *lastName : NVARCHAR(20)
+  *company: NVARCHAR(80)
+  *address: NVARCHAR(70)
+  *city: NVARCHAR(40)
+  *state: NVARCHAR(40)
+  *country:NVARCHAR(40)
+  *postalcode: NVARCHAR(10)
+  *phone: NVARCHAR(24)
+  *fax: NVARCHAR(24)
+  *email: NVARCHAR(60)
+  *supportrepld: INTEGER <<FK>>
+}
+
+entity "TB_FATURAS" {
+  *id : INTEGER
+  --
+  *ClienteId: INTEGER <<FK>>
+  *Invoicedate:DATETIME
+  Billingadress: NVARCHAR
+  Billingcity: NVARCHAR
+}
+
+entity "TB_FATURAS_ITEMS"  {
+  *id : INTEGER
+  --
+  *FaturaId : INTEGER <<FK>>
+  *MusicaId: INTEGER<<FK>>
+  *UnitPrice: NUMERIC
+  *Quantity: INTEGER
+}
+
+
+entity "TB_ALBUMS" {
+  *id : INTEGER <<PK>>
+  --
+  *title: NVARCHAR(160)
+  *ArtistaId : INTEGER <<FK>>
+}
+
+entity "TB_MUSICAS"{
+ *id : INTEGER
+ --
+  *name:NVARCHAR(200)
+  *albumId:INTEGER  <<FK>>
+  *mediaTypeid : INTEGER <<FK>>
+  *generoId : INTEGER  <<FK>>
+  compositor : NVARCHAR(220)
+  milissegundos : INTEGER
+  bytes : INTEGER
+  unitPrice : NUMERIC
+}
+
+entity "TB_ARTISTAS"{
+  * id : INTEGER
+  --
+  *name : NVARCHAR(120)
+}
+
+entity "TB_PLAYLISTS"{
+ *playlistID : INTEGER
+ --
+ *name : NVARCHAR(120)
+}
+
+entity "TB_PLAYLISTS_MUSICAS"{
+ *playlistID : INTEGER
+ *musicaID: INTEGER
+}
+
+entity "TB_TIPOS_MIDIA"{
+ *Id:INTEGER
+ --
+ *name:NVARCHAR(120)
+}
+
+entity "TB_GENEROS"{
+ *id : INTEGER
+ --
+ *name:NVARCHAR(120)
+}
+
+
+TB_FUNCIONARIOS |o--o{ TB_FUNCIONARIOS
+TB_FUNCIONARIOS |o--o{ TB_CLIENTES
+TB_CLIENTES ||--o{ TB_FATURAS
+TB_FATURAS ||--o{ TB_FATURAS_ITEMS
+TB_MUSICAS ||--o{ TB_FATURAS_ITEMS
+TB_ALBUMS |o--o{ TB_MUSICAS
+TB_ARTISTAS ||--o{ TB_ALBUMS
+TB_GENEROS|o--o{TB_MUSICAS 
+TB_TIPOS_MIDIA||--o{TB_MUSICAS 
+TB_PLAYLISTS_MUSICAS |o--|| TB_MUSICAS
+TB_PLAYLISTS_MUSICAS |o--|| TB_PLAYLISTS
+
+@enduml
