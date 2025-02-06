@@ -8,3 +8,4 @@ Traduzir os objetos do Banco de dados para os seguintes padrões:
 
 Criar CRUD para todas as Tabelas (insert, select, update e delete). 
 
+gpuf
