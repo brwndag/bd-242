@@ -7,5 +7,3 @@ Traduzir os objetos do Banco de dados para os seguintes padrões:
 3) Chave Estrangeira -> produto_id
 
 Criar CRUD para todas as Tabelas (insert, select, update e delete). 
-
-gpuf
